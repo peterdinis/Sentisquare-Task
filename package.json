@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/query-devtools": "^5.90.1",
     "@tanstack/react-query": "^5.90.2",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "@testing-library/jest-dom": "^6.9.0",
     "@testing-library/user-event": "^14.6.1",
     "axios": "^1.12.2",
