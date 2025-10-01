@@ -3,42 +3,20 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Card, Spinner } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import { FormValues, schema } from '../../validators/fileValidators';
 
 interface FileUploaderProps {
-  /**
-   * Callback function called after the file is read.
-   * @param {string[]} lines - Array of trimmed non-empty lines from the uploaded text file.
-   */
   onFileRead: (lines: string[]) => void;
+  isLoading?: boolean; // New prop
 }
 
-/**
- * FileUploader component allows users to upload a text (.txt) file,
- * reads its content, splits it into individual lines, trims empty lines,
- * and passes the resulting array of lines to the provided `onFileRead` callback.
- *
- * Uses **react-hook-form** for form management and validation via **Zod**.
- *
- * @param {FileUploaderProps} props - Props containing the `onFileRead` callback
- * @returns JSX.Element - File upload form
- *
- * @example
- * <FileUploader onFileRead={(lines) => console.log(lines)} />
- */
-export default function FileUploader({ onFileRead }: FileUploaderProps) {
+export default function FileUploader({ onFileRead, isLoading = false }: FileUploaderProps) {
   const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(schema)
   });
 
-  /**
-   * Handles the form submission.
-   * Reads the selected file as text, splits it into lines, trims whitespace,
-   * filters out empty lines, and calls `onFileRead` with the resulting array.
-   *
-   * @param {FormValues} data - Form values containing the uploaded file
-   */
   const onSubmit = (data: FormValues) => {
     const file = data.file[0];
     const reader = new FileReader();
@@ -51,27 +29,52 @@ export default function FileUploader({ onFileRead }: FileUploaderProps) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Row className="align-items-center g-2">
-        <Col xs={12} md={8}>
-          <Controller
-  name="file"
-  control={control}
-  render={({ field }) => (
-    <Form.Control
-      type="file"
-      accept=".txt"
-      data-testid="file-input"
-      onChange={e => field.onChange((e.target as HTMLInputElement).files)}
-    />
-  )}
-/>
-          {errors.file && <div className="text-danger small mt-1">{errors.file.message}</div>}
-        </Col>
-        <Col xs={12} md={4} className="text-md-end">
-          <Button type="submit" className="mt-2">Upload</Button>
-        </Col>
-      </Row>
-    </Form>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <Card className="shadow-sm border-0 p-4 rounded-3">
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group>
+            <Form.Label className="fw-semibold mb-2">Upload a .txt file</Form.Label>
+            <Controller
+              name="file"
+              control={control}
+              render={({ field }) => (
+                <Form.Control
+                  type="file"
+                  accept=".txt"
+                  onChange={e => field.onChange((e.target as HTMLInputElement).files)}
+                  isInvalid={!!errors.file}
+                  disabled={isLoading} // disable input while loading
+                />
+              )}
+            />
+            {errors.file && <Form.Text className="text-danger">{errors.file.message}</Form.Text>}
+          </Form.Group>
+
+          <div className="d-flex justify-content-end mt-3 align-items-center">
+            <Button type="submit" variant="primary" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                  Analyzing…
+                </>
+              ) : (
+                'Upload & Analyze'
+              )}
+            </Button>
+          </div>
+        </Form>
+      </Card>
+    </motion.div>
   );
 }
