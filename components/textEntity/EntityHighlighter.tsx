@@ -4,7 +4,7 @@ import React from "react";
 import { Card, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { TextRazorEntity } from "@/types/textRazorTypes";
-import { highlightEntities } from "@/utils/highlight";
+import { highlightEntities } from "../../utils/highlight";
 
 interface Props {
   /** The original text to display with highlighted entities */

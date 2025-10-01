@@ -2,6 +2,7 @@ import React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import DashboardHeader from "../../../components/dashboard/DashboardHeader";
+import "@testing-library/jest-dom";
 
 describe("DashboardHeader", () => {
   it("renders the title", () => {

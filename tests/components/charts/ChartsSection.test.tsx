@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import ChartsSection from "@/components/charts/ChartSection";
+import ChartsSection from "../../../components/charts/ChartSection";
 
 // Mock vnútorného Charts komponentu
 vi.mock("../../components/charts/ChartsWrapper", () => ({
