@@ -43,7 +43,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (!parsed.success) {
       return NextResponse.json(
         { error: parsed.error.format() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (!API_KEY) {
       return NextResponse.json(
         { error: "TEXTRAZOR_API_KEY not set" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           "x-textrazor-key": API_KEY,
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      }
+      },
     );
 
     return NextResponse.json(response.data);
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (axios.isAxiosError(err)) {
       return NextResponse.json(
         { error: err.message },
-        { status: err.response?.status ?? 500 }
+        { status: err.response?.status ?? 500 },
       );
     }
 

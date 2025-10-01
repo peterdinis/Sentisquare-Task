@@ -15,11 +15,12 @@
  * escapeHtml('<div>Hello</div>'); // returns '&lt;div&gt;Hello&lt;/div&gt;'
  */
 export const escapeHtml = (unsafe: string) =>
-    unsafe.replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
+  unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 /**
  * Highlights entities in a given text by wrapping them in a span with a data attribute.
@@ -38,14 +39,20 @@ export const escapeHtml = (unsafe: string) =>
  * highlightEntities(text, entities);
  * // returns: '&lt;span class="entity-badge" data-entity-type="Person"&gt;George Bush&lt;/span&gt; was president of &lt;span class="entity-badge" data-entity-type="Country"&gt;USA&lt;/span&gt;.'
  */
-export const highlightEntities = (text: string, entities: { matchedText: string; type?: string }[]) => {
-    let result = escapeHtml(text);
-    entities.forEach(ent => {
-        const pattern = new RegExp(`\\b${ent.matchedText.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}\\b`, 'gi');
-        result = result.replace(
-            pattern,
-            `<span class="entity-badge" data-entity-type="${escapeHtml(ent.type || 'Unknown')}">${escapeHtml(ent.matchedText)}</span>`
-        );
-    });
-    return result;
+export const highlightEntities = (
+  text: string,
+  entities: { matchedText: string; type?: string }[],
+) => {
+  let result = escapeHtml(text);
+  entities.forEach((ent) => {
+    const pattern = new RegExp(
+      `\\b${ent.matchedText.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`,
+      "gi",
+    );
+    result = result.replace(
+      pattern,
+      `<span class="entity-badge" data-entity-type="${escapeHtml(ent.type || "Unknown")}">${escapeHtml(ent.matchedText)}</span>`,
+    );
+  });
+  return result;
 };

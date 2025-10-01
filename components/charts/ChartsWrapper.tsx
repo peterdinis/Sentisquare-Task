@@ -1,10 +1,21 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
-import { Card } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import { COLORS } from '@/constants/applicationConstants';
+import React from "react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import { Card } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { COLORS } from "@/constants/applicationConstants";
 
 interface ChartsProps {
   /** Array of objects representing entity types and their counts */
@@ -33,13 +44,20 @@ interface ChartsProps {
  */
 export default function Charts({ entityCounts }: ChartsProps) {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+    >
       {/* Bar chart – frequency of entity types */}
       <Card className="p-3 mb-3">
         <h5>Entity types — frequency</h5>
-        <div style={{ width: '100%', height: 280 }}>
+        <div style={{ width: "100%", height: 280 }}>
           <ResponsiveContainer>
-            <BarChart data={entityCounts} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+            <BarChart
+              data={entityCounts}
+              margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="type" />
               <YAxis />
@@ -53,12 +71,22 @@ export default function Charts({ entityCounts }: ChartsProps) {
       {/* Pie chart – share of each entity type */}
       <Card className="p-3">
         <h5>Share by type (pie)</h5>
-        <div style={{ width: '100%', height: 240 }}>
+        <div style={{ width: "100%", height: 240 }}>
           <ResponsiveContainer>
             <PieChart>
-              <Pie data={entityCounts} dataKey="count" nameKey="type" outerRadius={80} fill="#8884d8" label>
+              <Pie
+                data={entityCounts}
+                dataKey="count"
+                nameKey="type"
+                outerRadius={80}
+                fill="#8884d8"
+                label
+              >
                 {entityCounts.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip />
