@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { FormValues, schema } from '@/validators/fileValidators';
+import { FormValues, schema } from '../../validators/fileValidators';
 
 interface FileUploaderProps {
   /**
@@ -55,16 +55,17 @@ export default function FileUploader({ onFileRead }: FileUploaderProps) {
       <Row className="align-items-center g-2">
         <Col xs={12} md={8}>
           <Controller
-            name="file"
-            control={control}
-            render={({ field }) => (
-              <Form.Control
-                type="file"
-                accept=".txt"
-                onChange={e => field.onChange((e.target as HTMLInputElement).files)}
-              />
-            )}
-          />
+  name="file"
+  control={control}
+  render={({ field }) => (
+    <Form.Control
+      type="file"
+      accept=".txt"
+      data-testid="file-input"
+      onChange={e => field.onChange((e.target as HTMLInputElement).files)}
+    />
+  )}
+/>
           {errors.file && <div className="text-danger small mt-1">{errors.file.message}</div>}
         </Col>
         <Col xs={12} md={4} className="text-md-end">
