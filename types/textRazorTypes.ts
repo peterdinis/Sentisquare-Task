@@ -32,13 +32,12 @@ export interface TextRazorResponse {
 /**
  * Local structure representing a single line of text and its associated entities.
  *
- * Used in the frontend for storing processed lines from a text file.
+ * Modified so that entities are now full TextRazorEntity objects
+ * to be compatible with EntityHighlighter.
  *
  * @interface LineData
  */
 export interface LineData {
-  /** Original text of the line */
   text: string;
-  /** Array of entities detected in this line */
   entities: TextRazorEntity[];
 }

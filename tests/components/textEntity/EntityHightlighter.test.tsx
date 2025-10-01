@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import EntityHighlighter from "../../components/textEntity/EntityHighlighter";
+import EntityHighlighter from "../../../components/textEntity/EntityHighlighter";
 import { TextRazorEntity } from "@/types/textRazorTypes";
 import "@testing-library/jest-dom";
 

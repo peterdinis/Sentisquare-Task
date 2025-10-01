@@ -13,14 +13,12 @@ import { LineData } from "@/types/textRazorTypes";
  * @param {Object} props - Component props
  * @param {LineData[]} props.linesData - Array of text lines with their corresponding entities
  * @returns {JSX.Element} A card displaying the highlighted texts with a scrollable area
- *
- * @example
- * <HighlightedTexts linesData={[
- *   { text: "John works at OpenAI.", entities: [{ type: ["Person"], matchedText: "John" }] },
- *   { text: "Microsoft released a new product.", entities: [{ type: ["Organization"], matchedText: "Microsoft" }] }
- * ]} />
  */
-const HighlightedTexts = ({ linesData }: { linesData: LineData[] }) => (
+interface HighlightedTextsProps {
+  linesData: LineData[];
+}
+
+const HighlightedTexts = ({ linesData }: HighlightedTextsProps) => (
   <motion.div
     initial={{ opacity: 0, x: 30 }}
     animate={{ opacity: 1, x: 0 }}
@@ -33,9 +31,24 @@ const HighlightedTexts = ({ linesData }: { linesData: LineData[] }) => (
       <Card.Title className="fw-semibold mb-3">
         📝 Texts with Highlighted Entities
       </Card.Title>
-      {linesData.map((l, idx) => (
-        <EntityHighlighter key={idx} text={l.text} entities={l.entities} />
-      ))}
+
+      {linesData.map((line, idx) => {
+        // Ensure each entity is a full TextRazorEntity
+        const entities = line.entities.map((e) => ({
+          entityId: e.entityId ?? "",
+          confidenceScore: e.confidenceScore ?? 0,
+          matchedText: e.matchedText,
+          type: e.type ?? ["Unknown"],
+        }));
+
+        return (
+          <EntityHighlighter
+            key={idx}
+            text={line.text}
+            entities={entities}
+          />
+        );
+      })}
     </Card>
   </motion.div>
 );

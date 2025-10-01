@@ -1,9 +1,10 @@
 "use client";
+
 import React from "react";
 import { Card, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { TextRazorEntity } from "@/types/textRazorTypes";
-import { highlightEntities } from "../../utils/highlight";
+import { highlightEntities } from "@/utils/highlight";
 
 interface Props {
   /** The original text to display with highlighted entities */
@@ -35,16 +36,13 @@ export default function EntityHighlighter({ text, entities }: Props) {
   // Map entities to the format used by the highlightEntities utility
   const items = entities.map((e) => ({
     matchedText: e.matchedText,
-    type: e.type?.[0],
+    type: e.type?.[0] ?? "Unknown",
   }));
+
   const html = highlightEntities(text, items);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="mb-2"
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-2">
       <Card className="p-3">
         {/* Highlighted text */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
