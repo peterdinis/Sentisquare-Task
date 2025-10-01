@@ -1,12 +1,14 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import EntityHighlighter from "../../../components/textEntity/EntityHighlighter";
 import { TextRazorEntity } from "@/types/textRazorTypes";
-import "@testing-library/jest-dom";
+import EntityHighlighter from "@/components/textEntity/EntityHighlighter";
 
 describe("EntityHighlighter", () => {
+  /** Sample text to highlight entities in */
   const text = "George Bush was president of USA.";
+
+  /** Sample entities to be highlighted */
   const entities: TextRazorEntity[] = [
     {
       entityId: "1",
@@ -22,10 +24,14 @@ describe("EntityHighlighter", () => {
     },
   ];
 
+  /**
+   * Test that the component renders the text container and highlights.
+   */
   it("renders the text with highlights", () => {
     render(<EntityHighlighter text={text} entities={entities} />);
     const card = document.querySelector(".card");
     expect(card).toBeInTheDocument();
+
     // Ensure highlighted spans exist
     const highlights = card!.querySelectorAll(".entity-badge");
     expect(highlights.length).toBe(2);
@@ -33,12 +39,18 @@ describe("EntityHighlighter", () => {
     expect(highlights[1]).toHaveTextContent("USA");
   });
 
+  /**
+   * Test that entity badges are rendered with type labels.
+   */
   it("renders entity badges", () => {
     render(<EntityHighlighter text={text} entities={entities} />);
     expect(screen.getByText(/George Bush \(Person\)/i)).toBeInTheDocument();
     expect(screen.getByText(/USA \(Country\)/i)).toBeInTheDocument();
   });
 
+  /**
+   * Test that highlighted entities are displayed in the text body.
+   */
   it("highlights entities in the text", () => {
     render(<EntityHighlighter text={text} entities={entities} />);
     const highlightedElements = document.querySelectorAll(".entity-badge");
@@ -47,6 +59,9 @@ describe("EntityHighlighter", () => {
     expect(highlightedElements[1]).toHaveTextContent("USA");
   });
 
+  /**
+   * Test that the component handles an empty entity array without errors.
+   */
   it("handles empty entities", () => {
     render(<EntityHighlighter text={text} entities={[]} />);
     expect(screen.getByText(text)).toBeInTheDocument();

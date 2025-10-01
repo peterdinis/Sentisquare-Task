@@ -1,11 +1,11 @@
 import React from "react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import HighlightedTexts from "../../../components/text/HighlightedText";
 import { LineData } from "@/types/textRazorTypes";
-import "@testing-library/jest-dom";
+import HighlightedTexts from "@/components/text/HighlightedText";
 
 describe("HighlightedTexts", () => {
+  /** Mock data representing lines of text with detected entities */
   const mockLines: LineData[] = [
     {
       text: "John works at OpenAI.",
@@ -37,6 +37,9 @@ describe("HighlightedTexts", () => {
     },
   ];
 
+  /**
+   * Test that the card title renders correctly.
+   */
   it("renders the card title", () => {
     render(<HighlightedTexts linesData={mockLines} />);
     expect(
@@ -44,12 +47,18 @@ describe("HighlightedTexts", () => {
     ).toBeInTheDocument();
   });
 
+  /**
+   * Test that all highlighted entities are rendered.
+   */
   it("renders the correct number of EntityHighlighter components", () => {
     render(<HighlightedTexts linesData={mockLines} />);
     const highlightedTexts = screen.getAllByText(/John|OpenAI|Microsoft/);
     expect(highlightedTexts.length).toBeGreaterThanOrEqual(3);
   });
 
+  /**
+   * Test that each entity's matched text is displayed in the output.
+   */
   it("renders entity matchedText in the output", () => {
     render(<HighlightedTexts linesData={mockLines} />);
     expect(screen.getByText("John")).toBeInTheDocument();
@@ -57,6 +66,9 @@ describe("HighlightedTexts", () => {
     expect(screen.getByText("Microsoft")).toBeInTheDocument();
   });
 
+  /**
+   * Test that entities with missing types are handled gracefully.
+   */
   it("renders unknown type if entity type is missing", () => {
     const linesWithMissingType: LineData[] = [
       {
@@ -75,6 +87,9 @@ describe("HighlightedTexts", () => {
     expect(screen.getByText("Unknown")).toBeInTheDocument();
   });
 
+  /**
+   * Test that the component handles an empty linesData array without errors.
+   */
   it("handles empty linesData gracefully", () => {
     render(<HighlightedTexts linesData={[]} />);
     expect(

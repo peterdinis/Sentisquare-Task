@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { FormValues, schema } from "../../validators/fileValidators";
+import { FormValues, schema } from "@/validators/fileValidators";
 
 interface FileUploaderProps {
   /**

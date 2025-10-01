@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { type JSX } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 
 /**
@@ -33,7 +33,7 @@ const ToastNotifier = ({
   setShow: (v: boolean) => void;
   message: string;
   isError: boolean;
-}) => (
+}): JSX.Element => (
   <ToastContainer position="top-end" className="p-3">
     <Toast
       onClose={() => setShow(false)}

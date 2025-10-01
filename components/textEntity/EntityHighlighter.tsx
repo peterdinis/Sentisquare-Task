@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { type JSX } from "react";
 import { Card, Badge } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { TextRazorEntity } from "@/types/textRazorTypes";
-import { highlightEntities } from "../../utils/highlight";
+import { highlightEntities } from "@/utils/highlight";
 
 interface Props {
   /** The original text to display with highlighted entities */
@@ -32,7 +32,7 @@ interface Props {
  * ];
  * <EntityHighlighter text="George Bush was president of USA." entities={entities} />
  */
-export default function EntityHighlighter({ text, entities }: Props) {
+export default function EntityHighlighter({ text, entities }: Props): JSX.Element {
   // Map entities to the format used by the highlightEntities utility
   const items = entities.map((e) => ({
     matchedText: e.matchedText,

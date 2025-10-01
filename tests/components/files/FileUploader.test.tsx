@@ -2,8 +2,7 @@ import React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import FileUploader from "../../../components/files/FileUploader";
-import "@testing-library/jest-dom";
+import FileUploader from "@/components/files/FileUploader";
 
 describe("FileUploader", () => {
   const mockOnFileRead = vi.fn();
@@ -16,6 +15,9 @@ describe("FileUploader", () => {
     });
   });
 
+  /**
+   * Test that the file upload form renders correctly.
+   */
   it("renders the file upload form correctly", () => {
     render(<FileUploader onFileRead={mockOnFileRead} />);
 
@@ -25,6 +27,9 @@ describe("FileUploader", () => {
     ).toBeInTheDocument();
   });
 
+  /**
+   * Test that a file can be selected via the file input.
+   */
   it("allows file selection", async () => {
     const user = userEvent.setup();
     render(<FileUploader onFileRead={mockOnFileRead} />);
@@ -38,6 +43,9 @@ describe("FileUploader", () => {
     expect(input.files).toHaveLength(1);
   });
 
+  /**
+   * Test that onFileRead is called with parsed lines when form is submitted.
+   */
   it("calls onFileRead with parsed lines when form is submitted", async () => {
     const user = userEvent.setup();
     render(<FileUploader onFileRead={mockOnFileRead} />);
@@ -55,6 +63,9 @@ describe("FileUploader", () => {
     });
   });
 
+  /**
+   * Test that empty lines are filtered and whitespace is trimmed.
+   */
   it("trims whitespace and filters empty lines", async () => {
     const user = userEvent.setup();
     const fileWithSpaces = new File(
@@ -78,6 +89,9 @@ describe("FileUploader", () => {
     });
   });
 
+  /**
+   * Test that the loading state disables inputs and shows appropriate text.
+   */
   it("shows loading state when isLoading is true", () => {
     render(<FileUploader onFileRead={mockOnFileRead} isLoading={true} />);
 
@@ -89,6 +103,9 @@ describe("FileUploader", () => {
     expect(screen.getByText(/analyzing/i)).toBeInTheDocument();
   });
 
+  /**
+   * Test that both file input and button are disabled when loading.
+   */
   it("disables file input and button during loading", () => {
     render(<FileUploader onFileRead={mockOnFileRead} isLoading={true} />);
 
@@ -99,6 +116,9 @@ describe("FileUploader", () => {
     expect(submitButton).toBeDisabled();
   });
 
+  /**
+   * Test that a validation error is shown if no file is selected.
+   */
   it("displays validation error when no file is selected", async () => {
     const user = userEvent.setup();
     render(<FileUploader onFileRead={mockOnFileRead} />);
@@ -115,6 +135,9 @@ describe("FileUploader", () => {
     expect(mockOnFileRead).not.toHaveBeenCalled();
   });
 
+  /**
+   * Test handling of files with CRLF line endings.
+   */
   it("handles files with different line endings (CRLF)", async () => {
     const user = userEvent.setup();
     const fileWithCRLF = new File(["line1\r\nline2\r\nline3"], "test.txt", {
@@ -136,6 +159,9 @@ describe("FileUploader", () => {
     });
   });
 
+  /**
+   * Test that empty files are handled correctly.
+   */
   it("handles empty file correctly", async () => {
     const user = userEvent.setup();
     const emptyFile = new File([""], "empty.txt", { type: "text/plain" });
@@ -155,6 +181,9 @@ describe("FileUploader", () => {
     });
   });
 
+  /**
+   * Test that the file input only accepts .txt files.
+   */
   it("applies correct accept attribute to file input", () => {
     render(<FileUploader onFileRead={mockOnFileRead} />);
 
@@ -162,9 +191,11 @@ describe("FileUploader", () => {
     expect(input).toHaveAttribute("accept", ".txt");
   });
 
+  /**
+   * Test that the component renders with initial animation wrapper.
+   */
   it("renders with initial animation", () => {
     const { container } = render(<FileUploader onFileRead={mockOnFileRead} />);
-
     const motionDiv = container.querySelector("div");
     expect(motionDiv).toBeInTheDocument();
   });

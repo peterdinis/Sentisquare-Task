@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode } from "react";
+import { FC, type JSX, ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -26,7 +26,7 @@ type QueryProviderProps = {
  */
 const QueryProvider: FC<QueryProviderProps> = ({
   children,
-}: QueryProviderProps) => {
+}: QueryProviderProps): JSX.Element => {
   // Initialize a new QueryClient instance
   const queryClient = new QueryClient();
 

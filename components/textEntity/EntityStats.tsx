@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { type JSX } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { motion } from "framer-motion";
 
@@ -30,7 +30,7 @@ const EntityStats = ({
 }: {
   entityCounts: { type: string; count: number }[];
   totalLines: number;
-}) => {
+}): JSX.Element => {
   const totalEntities = entityCounts.reduce((sum, e) => sum + e.count, 0);
   const topEntity = entityCounts.sort((a, b) => b.count - a.count)[0];
 

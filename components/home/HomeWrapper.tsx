@@ -1,15 +1,15 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, type JSX, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { LineData } from "@/types/textRazorTypes";
-import { useAnalyzeText } from "../../hooks/useAnalyzeText";
-import DashboardHeader from "../../components/dashboard/DashboardHeader";
-import FileUploader from "../../components/files/FileUploader";
-import EntityStats from "../textEntity/EntityStats";
-import HighlightedTexts from "../text/HighlightedText";
-import ToastNotifier from "../toasts/ToastNotifier";
+import { useAnalyzeText } from "@/hooks/useAnalyzeText";
 import ChartsSection from "../charts/ChartSection";
+import DashboardHeader from "../dashboard/DashboardHeader";
+import FileUploader from "../files/FileUploader";
+import HighlightedTexts from "../text/HighlightedText";
+import EntityStats from "../textEntity/EntityStats";
+import ToastNotifier from "../toasts/ToastNotifier";
 
 /**
  * HomepageWrapper component serves as the main dashboard page.
@@ -27,7 +27,7 @@ import ChartsSection from "../charts/ChartSection";
  * @example
  * <HomepageWrapper />
  */
-const HomepageWrapper: FC = () => {
+const HomepageWrapper: FC = (): JSX.Element => {
   const [linesData, setLinesData] = useState<LineData[]>([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");

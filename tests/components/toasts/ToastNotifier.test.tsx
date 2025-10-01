@@ -1,10 +1,12 @@
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import ToastNotifier from "../../../components/toasts/ToastNotifier";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import ToastNotifier from "@/components/toasts/ToastNotifier";
 
 describe("ToastNotifier", () => {
+  /**
+   * Test that the toast renders with the correct message.
+   */
   it("renders the toast with the correct message", () => {
     render(
       <ToastNotifier
@@ -18,6 +20,9 @@ describe("ToastNotifier", () => {
     expect(screen.getByText("Test message")).toBeInTheDocument();
   });
 
+  /**
+   * Test that success styling is applied when isError is false.
+   */
   it("applies success style when isError is false", () => {
     render(
       <ToastNotifier
@@ -32,6 +37,9 @@ describe("ToastNotifier", () => {
     expect(toast).toHaveClass("bg-success");
   });
 
+  /**
+   * Test that danger styling is applied when isError is true.
+   */
   it("applies danger style when isError is true", () => {
     render(
       <ToastNotifier
@@ -46,6 +54,9 @@ describe("ToastNotifier", () => {
     expect(toast).toHaveClass("bg-danger");
   });
 
+  /**
+   * Test that the setShow callback is called with false when the toast is closed.
+   */
   it("calls setShow(false) when the toast is closed", () => {
     const setShow = vi.fn();
     render(
@@ -57,19 +68,21 @@ describe("ToastNotifier", () => {
       />,
     );
 
-    // Grab the Toast element
     const toast = screen.getByText("Closable toast").closest(".toast");
 
-    // Trigger the onClose callback manually
+    // Simulate toast close event
     if (toast) {
-      // @ts-ignore access private React instance props
+      // Dispatch the bootstrap close event manually
       toast.dispatchEvent(new CustomEvent("close.bs.toast"));
-      setShow(false); // simulate the callback
+      setShow(false); // simulate callback
     }
 
     expect(setShow).toHaveBeenCalledWith(false);
   });
 
+  /**
+   * Test that the toast does not render when show is false.
+   */
   it("does not render the toast when show is false", () => {
     render(
       <ToastNotifier
