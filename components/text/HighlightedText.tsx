@@ -43,11 +43,7 @@ const HighlightedTexts = ({ linesData }: HighlightedTextsProps) => (
         }));
 
         return (
-          <EntityHighlighter
-            key={idx}
-            text={line.text}
-            entities={entities}
-          />
+          <EntityHighlighter key={idx} text={line.text} entities={entities} />
         );
       })}
     </Card>

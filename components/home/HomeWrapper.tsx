@@ -3,9 +3,9 @@
 import React, { FC, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { LineData } from "@/types/textRazorTypes";
-import { useAnalyzeText } from "@/hooks/useAnalyzeText";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import FileUploader from "@/components/files/FileUploader";
+import { useAnalyzeText } from "../../hooks/useAnalyzeText";
+import DashboardHeader from "../../components/dashboard/DashboardHeader";
+import FileUploader from "../../components/files/FileUploader";
 import EntityStats from "../textEntity/EntityStats";
 import HighlightedTexts from "../text/HighlightedText";
 import ToastNotifier from "../toasts/ToastNotifier";

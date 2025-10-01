@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Card } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Charts from "./ChartsWrapper";

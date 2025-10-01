@@ -17,7 +17,7 @@ describe("DashboardHeader", () => {
       <DashboardHeader
         title="Main Dashboard"
         subtitle="This is the subtitle"
-      />
+      />,
     );
     const subtitleElement = screen.getByText("This is the subtitle");
     expect(subtitleElement).toBeInTheDocument();

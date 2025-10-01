@@ -21,21 +21,6 @@ interface FileUploaderProps {
   isLoading?: boolean;
 }
 
-/**
- * FileUploader component allows users to upload a text (.txt) file,
- * reads its content, splits it into individual lines, trims empty lines,
- * and passes the resulting array of lines to the provided `onFileRead` callback.
- *
- * Includes a loading state where the button is disabled and a spinner is shown
- * while the file is being processed.
- *
- * @component
- * @param {FileUploaderProps} props - Component props
- * @returns {JSX.Element} The file upload form card with smooth animation
- *
- * @example
- * <FileUploader onFileRead={(lines) => console.log(lines)} isLoading={false} />
- */
 export default function FileUploader({
   onFileRead,
   isLoading = false,
@@ -71,7 +56,7 @@ export default function FileUploader({
       <Card className="shadow-sm border-0 p-4 rounded-3">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group>
-            <Form.Label className="fw-semibold mb-2">
+            <Form.Label htmlFor="file-input" className="fw-semibold mb-2">
               Upload a .txt file
             </Form.Label>
             <Controller
@@ -79,6 +64,7 @@ export default function FileUploader({
               control={control}
               render={({ field }) => (
                 <Form.Control
+                  id="file-input"
                   type="file"
                   accept=".txt"
                   onChange={(e) =>

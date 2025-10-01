@@ -14,7 +14,7 @@ describe("EntityStats", () => {
   it("renders total lines processed", () => {
     render(<EntityStats entityCounts={mockData} totalLines={10} />);
     expect(screen.getByText(/Lines processed:/)).toHaveTextContent(
-      "Lines processed: 10"
+      "Lines processed: 10",
     );
   });
 
@@ -22,7 +22,7 @@ describe("EntityStats", () => {
     render(<EntityStats entityCounts={mockData} totalLines={10} />);
     // total entities = 5 + 3 + 2 = 10
     expect(screen.getByText(/Total entities:/)).toHaveTextContent(
-      "Total entities: 10"
+      "Total entities: 10",
     );
   });
 
@@ -30,14 +30,14 @@ describe("EntityStats", () => {
     render(<EntityStats entityCounts={mockData} totalLines={10} />);
     // Most frequent is "Person" with count 5
     expect(screen.getByText(/Most frequent entity type:/)).toHaveTextContent(
-      "Most frequent entity type: Person"
+      "Most frequent entity type: Person",
     );
   });
 
   it("renders '-' if entityCounts is empty", () => {
     render(<EntityStats entityCounts={[]} totalLines={5} />);
     expect(screen.getByText(/Most frequent entity type:/)).toHaveTextContent(
-      "Most frequent entity type: -"
+      "Most frequent entity type: -",
     );
   });
 
@@ -45,10 +45,10 @@ describe("EntityStats", () => {
     const single = [{ type: "Company", count: 7 }];
     render(<EntityStats entityCounts={single} totalLines={7} />);
     expect(screen.getByText(/Total entities:/)).toHaveTextContent(
-      "Total entities: 7"
+      "Total entities: 7",
     );
     expect(screen.getByText(/Most frequent entity type:/)).toHaveTextContent(
-      "Most frequent entity type: Company"
+      "Most frequent entity type: Company",
     );
   });
 });

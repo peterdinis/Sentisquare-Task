@@ -40,7 +40,7 @@ describe("HighlightedTexts", () => {
   it("renders the card title", () => {
     render(<HighlightedTexts linesData={mockLines} />);
     expect(
-      screen.getByText("📝 Texts with Highlighted Entities")
+      screen.getByText("📝 Texts with Highlighted Entities"),
     ).toBeInTheDocument();
   });
 
@@ -59,7 +59,17 @@ describe("HighlightedTexts", () => {
 
   it("renders unknown type if entity type is missing", () => {
     const linesWithMissingType: LineData[] = [
-      { text: "Unknown entity", entities: [{ entityId: "4", matchedText: "Unknown", type: [], confidenceScore: 0 }] },
+      {
+        text: "Unknown entity",
+        entities: [
+          {
+            entityId: "4",
+            matchedText: "Unknown",
+            type: [],
+            confidenceScore: 0,
+          },
+        ],
+      },
     ];
     render(<HighlightedTexts linesData={linesWithMissingType} />);
     expect(screen.getByText("Unknown")).toBeInTheDocument();
@@ -68,7 +78,7 @@ describe("HighlightedTexts", () => {
   it("handles empty linesData gracefully", () => {
     render(<HighlightedTexts linesData={[]} />);
     expect(
-      screen.getByText("📝 Texts with Highlighted Entities")
+      screen.getByText("📝 Texts with Highlighted Entities"),
     ).toBeInTheDocument();
   });
 });

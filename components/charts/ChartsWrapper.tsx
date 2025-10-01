@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { Card } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { COLORS } from "@/constants/applicationConstants";
+import { COLORS } from "../../constants/applicationConstants";
 
 interface ChartsProps {
   /** Array of objects representing entity types and their counts */

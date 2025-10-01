@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ToastNotifier from "../../../components/toasts/ToastNotifier";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 describe("ToastNotifier", () => {
   it("renders the toast with the correct message", () => {
@@ -12,7 +12,7 @@ describe("ToastNotifier", () => {
         setShow={vi.fn()}
         message="Test message"
         isError={false}
-      />
+      />,
     );
 
     expect(screen.getByText("Test message")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("ToastNotifier", () => {
         setShow={vi.fn()}
         message="Success message"
         isError={false}
-      />
+      />,
     );
 
     const toast = screen.getByText("Success message").closest(".toast");
@@ -39,7 +39,7 @@ describe("ToastNotifier", () => {
         setShow={vi.fn()}
         message="Error message"
         isError={true}
-      />
+      />,
     );
 
     const toast = screen.getByText("Error message").closest(".toast");
@@ -47,29 +47,28 @@ describe("ToastNotifier", () => {
   });
 
   it("calls setShow(false) when the toast is closed", () => {
-  const setShow = vi.fn();
-  render(
-    <ToastNotifier
-      show={true}
-      setShow={setShow}
-      message="Closable toast"
-      isError={false}
-    />
-  );
+    const setShow = vi.fn();
+    render(
+      <ToastNotifier
+        show={true}
+        setShow={setShow}
+        message="Closable toast"
+        isError={false}
+      />,
+    );
 
-  // Grab the Toast element
-  const toast = screen.getByText("Closable toast").closest(".toast");
+    // Grab the Toast element
+    const toast = screen.getByText("Closable toast").closest(".toast");
 
-  // Trigger the onClose callback manually
-  if (toast) {
-    // @ts-ignore access private React instance props
-    toast.dispatchEvent(new CustomEvent("close.bs.toast"));
-    setShow(false); // simulate the callback
-  }
+    // Trigger the onClose callback manually
+    if (toast) {
+      // @ts-ignore access private React instance props
+      toast.dispatchEvent(new CustomEvent("close.bs.toast"));
+      setShow(false); // simulate the callback
+    }
 
-  expect(setShow).toHaveBeenCalledWith(false);
-});
-
+    expect(setShow).toHaveBeenCalledWith(false);
+  });
 
   it("does not render the toast when show is false", () => {
     render(
@@ -78,7 +77,7 @@ describe("ToastNotifier", () => {
         setShow={vi.fn()}
         message="Hidden toast"
         isError={false}
-      />
+      />,
     );
 
     const toast = screen.queryByText("Hidden toast");

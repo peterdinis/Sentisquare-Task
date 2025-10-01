@@ -42,7 +42,11 @@ export default function EntityHighlighter({ text, entities }: Props) {
   const html = highlightEntities(text, items);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="mb-2"
+    >
       <Card className="p-3">
         {/* Highlighted text */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
