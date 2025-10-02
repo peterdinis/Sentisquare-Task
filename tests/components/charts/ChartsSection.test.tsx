@@ -8,9 +8,11 @@ import ChartsSection from "@/components/charts/ChartSection";
  * It simply renders the passed entityCounts as JSON.
  */
 vi.mock("../../../components/charts/ChartsWrapper", () => ({
-  default: ({ entityCounts }: { entityCounts: { type: string; count: number }[] }) => (
-    <div data-testid="charts-wrapper">{JSON.stringify(entityCounts)}</div>
-  ),
+  default: ({
+    entityCounts,
+  }: {
+    entityCounts: { type: string; count: number }[];
+  }) => <div data-testid="charts-wrapper">{JSON.stringify(entityCounts)}</div>,
 }));
 
 describe("ChartsSection", () => {

@@ -23,11 +23,6 @@
       "@/*": ["*"]
     }
   },
-  "include": [
-    "vitest.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["vitest.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

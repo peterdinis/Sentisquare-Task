@@ -18,7 +18,13 @@ vi.mock("recharts", () => ({
   ResponsiveContainer: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="responsive-container">{children}</div>
   ),
-  BarChart: ({ children, data }: { children: React.ReactNode; data: EntityCount[] }) => (
+  BarChart: ({
+    children,
+    data,
+  }: {
+    children: React.ReactNode;
+    data: EntityCount[];
+  }) => (
     <div data-testid="bar-chart" data-chart-data={JSON.stringify(data)}>
       {children}
     </div>
@@ -85,7 +91,9 @@ describe("Charts", () => {
   it("renders bar chart with correct data", () => {
     render(<Charts entityCounts={mockEntityCounts} />);
     const barChart = screen.getAllByTestId("bar-chart")[0];
-    const chartData: EntityCount[] = JSON.parse(barChart.getAttribute("data-chart-data") || "[]");
+    const chartData: EntityCount[] = JSON.parse(
+      barChart.getAttribute("data-chart-data") || "[]",
+    );
     expect(chartData).toEqual(mockEntityCounts);
   });
 
@@ -116,7 +124,9 @@ describe("Charts", () => {
   it("renders pie chart with correct data", () => {
     render(<Charts entityCounts={mockEntityCounts} />);
     const pie = screen.getByTestId("pie");
-    const chartData: EntityCount[] = JSON.parse(pie.getAttribute("data-chart-data") || "[]");
+    const chartData: EntityCount[] = JSON.parse(
+      pie.getAttribute("data-chart-data") || "[]",
+    );
     expect(chartData).toEqual(mockEntityCounts);
   });
 
@@ -186,10 +196,13 @@ describe("Charts", () => {
    * Test color wrapping when entity count exceeds COLORS array length
    */
   it("wraps colors correctly when entity count exceeds COLORS array length", () => {
-    const manyEntities: EntityCount[] = Array.from({ length: COLORS.length + 2 }, (_, i) => ({
-      type: `Type${i}`,
-      count: i + 1,
-    }));
+    const manyEntities: EntityCount[] = Array.from(
+      { length: COLORS.length + 2 },
+      (_, i) => ({
+        type: `Type${i}`,
+        count: i + 1,
+      }),
+    );
     render(<Charts entityCounts={manyEntities} />);
     const cells = screen.getAllByTestId("cell");
     expect(cells[0]).toHaveAttribute("data-fill", COLORS[0]);
@@ -252,7 +265,9 @@ describe("Charts", () => {
     ];
     render(<Charts entityCounts={dataWithZeros} />);
     const barChart = screen.getAllByTestId("bar-chart")[0];
-    const chartData: EntityCount[] = JSON.parse(barChart.getAttribute("data-chart-data") || "[]");
+    const chartData: EntityCount[] = JSON.parse(
+      barChart.getAttribute("data-chart-data") || "[]",
+    );
     expect(chartData[0].count).toBe(0);
   });
 });

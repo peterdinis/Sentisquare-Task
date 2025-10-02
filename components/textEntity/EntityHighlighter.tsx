@@ -32,7 +32,10 @@ interface Props {
  * ];
  * <EntityHighlighter text="George Bush was president of USA." entities={entities} />
  */
-export default function EntityHighlighter({ text, entities }: Props): JSX.Element {
+export default function EntityHighlighter({
+  text,
+  entities,
+}: Props): JSX.Element {
   // Map entities to the format used by the highlightEntities utility
   const items = entities.map((e) => ({
     matchedText: e.matchedText,

@@ -2,14 +2,14 @@ import path from "path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-   resolve: {
+  resolve: {
     alias: {
-      '@': path.resolve(__dirname, '.')
-    }
+      "@": path.resolve(__dirname, "."),
+    },
   },
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./setupTest"
+    setupFiles: "./setupTest",
   },
 });
